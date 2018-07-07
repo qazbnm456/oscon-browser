@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-
+import Electron from 'vue-electron'
+import unhandled from 'electron-unhandled'
 import 'bulma/css/bulma.css'
 
 import './assets/style/main.sass'
@@ -14,8 +15,9 @@ import store from './store'
 Vue.config.productionTip = false
 Vue.config.devtools = true
 
-Vue.use(require('vue-electron'))
+Vue.use(Electron)
 Vue.use(VueI18n)
+unhandled()
 
 /* Create VueI18n instance with options */
 const i18n = new VueI18n({
