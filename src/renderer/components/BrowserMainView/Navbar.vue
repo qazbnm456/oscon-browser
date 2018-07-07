@@ -24,7 +24,7 @@ export default {
             // check if we have handleSelect method defined in BrowserMainView
             if (this.$parent.handleSelect) {
                 // if so, then delegating to BrowserMainView
-                this.$parent.handleSelect('https://github.com/qazbnm456/browser-prototype');
+                this.$parent.handleSelect('https://github.com/qazbnm456/oscon-browser');
             }
         },
         onClickBack() {
