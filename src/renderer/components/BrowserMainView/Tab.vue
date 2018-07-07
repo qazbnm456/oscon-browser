@@ -1,5 +1,5 @@
 <template>
-<div id="chrome-tabs-shell">
+<div id="chrome-tabs-shell" @dblclick="onDoubleClick">
     <div class="chrome-tabs">
         <div class="chrome-tab chrome-tab-current" ref="tab">
             <svg data-v-3b6d303d="" width="15" height="30" class="left-edge">
@@ -24,6 +24,20 @@ export default {
         return {
             title: '',
         };
+    },
+    methods: {
+        onDoubleClick(event) {
+            if (event.target) {
+                const currentWindow = this.$electron.remote.BrowserWindow.getFocusedWindow();
+                if (currentWindow) {
+                    if (currentWindow.isMaximized()) {
+                        currentWindow.unmaximize();
+                    } else {
+                        currentWindow.maximize();
+                    }
+                }
+            }
+        },
     },
 };
 </script>
