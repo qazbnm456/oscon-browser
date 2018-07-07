@@ -1,10 +1,10 @@
 <template>
 <div id="browser-navbar">
     <div class="control">
-        <button @click="onClickHome">Home</button>
-        <button @click="onClickBack" :disabled="!canGoBack">Back</button>
-        <button @click="onClickForward" :disabled="!canGoForward">Forward</button>
-        <button @click="onClickReload">Reload</button>
+        <button @click="onClickHome">{{ $t("functions.home") }}</button>
+        <button @click="onClickBack" :disabled="!canGoBack">{{ $t("functions.back") }}</button>
+        <button @click="onClickForward" :disabled="!canGoForward">{{ $t("functions.forward") }}</button>
+        <button @click="onClickReload">{{ $t("functions.reload") }}</button>
     </div>
     <input @keyup.enter="onSelect" v-model="inputValue">
 </div>
@@ -24,7 +24,7 @@ export default {
             // check if we have handleSelect method defined in BrowserMainView
             if (this.$parent.handleSelect) {
                 // if so, then delegating to BrowserMainView
-                this.$parent.handleSelect('https://github.com/qazbnm456/browser-prototype');
+                this.$parent.handleSelect('https://github.com/qazbnm456/oscon-browser');
             }
         },
         onClickBack() {

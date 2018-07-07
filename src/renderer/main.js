@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueI18n from 'vue-i18n'
 
 import 'bulma/css/bulma.css'
 
@@ -14,9 +15,36 @@ Vue.config.productionTip = false
 Vue.config.devtools = true
 
 Vue.use(require('vue-electron'))
+Vue.use(VueI18n)
+
+/* Create VueI18n instance with options */
+const i18n = new VueI18n({
+  /* Set locale */
+  locale: 'zhTW',
+  /* Ready translated locale messages */
+  messages: {
+    en: {
+      functions: {
+        home: 'Home',
+        back: 'Back',
+        forward: 'Forward',
+        reload: 'Reload'
+      }
+    },
+    zhTW: {
+      functions: {
+        home: '首頁',
+        back: '上一頁',
+        forward: '下一頁',
+        reload: '重整'
+      }
+    }
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({
+  i18n,
   components: {
     App
   },
