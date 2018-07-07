@@ -2,6 +2,10 @@
 
 > The browser prototypr for OSCON 2018
 
+<p align="center">
+  <img alt="OSCON Browser" src="https://i.imgur.com/496y9aT.png" width="700px">
+</p>
+
 ## Build Setup
 
 ``` bash
