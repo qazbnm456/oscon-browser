@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'ImageParsing'
+  name: 'oscon-browser'
 }
 </script>
 

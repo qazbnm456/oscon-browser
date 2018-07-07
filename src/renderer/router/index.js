@@ -7,11 +7,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home'
-    },
-    {
-      path: '/home',
-      component: require('@/components/Home').default
+      component: require('@/components/BrowserMainView').default
     },
     {
       path: '*',

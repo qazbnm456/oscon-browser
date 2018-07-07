@@ -6,24 +6,9 @@
         <div class="hero-body">
           <div class="container has-text-centered">
             <h1 class="title is-1">
-              Vue-Electron-Template
+              OSCON Browser
             </h1>
-            <p>The boilerplate for making electron applications using vue.js </p>
-          </div>
-          <br/>
-          <div class="block has-text-centered">
-            <a class="button" href="https://github.com/mubaidr">
-              <span class="icon">
-                <i class="fab fa-github" />
-              </span>
-              <span>Follow me</span>
-            </a>
-            <a class="button" href="https://github.com/mubaidr">
-              <span class="icon">
-                <i class="fa fa-star" />
-              </span>
-              <span>Star</span>
-            </a>
+            <p>The browser prototype for OSCON 2018</p>
           </div>
         </div>
       </section>
@@ -35,10 +20,10 @@
 </template>
 
 <script>
-import SystemInformation from './Home/SystemInformation'
+import SystemInformation from './BrowserMainView/SystemInformation'
 
 export default {
-  name: 'Home',
+  name: 'BrowserMainView',
 
   components: { SystemInformation }
 }

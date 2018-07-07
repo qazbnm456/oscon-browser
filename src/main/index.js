@@ -1,5 +1,7 @@
 /* eslint-disable */
 import { app, BrowserWindow, ipcMain, Menu, MenuItem } from 'electron'
+import unhandled from 'electron-unhandled'
+import { is } from 'electron-util'
 /* eslint-enable */
 
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true
@@ -11,7 +13,8 @@ if (process.env.NODE_ENV === 'development') {
   try {
     // eslint-disable-next-line
     require('electron-debug')({
-      showDevTools: true
+      showDevTools: true,
+      devToolsMode: "bottom"
     })
   } catch (err) {
     console.log('Failed to install `electron-debug`: Please set `NODE_ENV=production` before build to avoid installing debugging packages. ')
@@ -43,16 +46,12 @@ function createWindow() {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    useContentSize: true,
-    width: 1000,
-    height: 700,
-    minWidth: 500,
-    minHeight: 350,
-    backgroundColor: '#fff',
-    webPreferences: {
-      nodeIntegrationInWorker: true,
-      webSecurity: false
-    },
+    autoHideMenuBar: is.macos,
+    frame: !is.windows,
+    fullscreenWindowTitle: true,
+    minWidth: 320,
+    minHeight: 500,
+    titleBarStyle: 'hiddenInset',
     show: false
   })
 
@@ -78,6 +77,7 @@ function createWindow() {
 }
 
 app.on('ready', () => {
+  unhandled()
   createWindow()
 
   if (process.env.NODE_ENV === 'development') {

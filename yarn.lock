@@ -1647,6 +1647,10 @@ clean-css@4.1.x:
   dependencies:
     source-map "0.5.x"
 
+clean-stack@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/clean-stack/-/clean-stack-1.3.0.tgz#9e821501ae979986c46b1d66d2d432db2fd4ae31"
+
 cli-boxes@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/cli-boxes/-/cli-boxes-1.0.0.tgz#4fa917c3e59c94a004cd61f8ee509da651687143"
@@ -2499,6 +2503,20 @@ electron-to-chromium@^1.3.45:
   version "1.3.47"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.47.tgz#764e887ca9104d01a0ac8eabee7dfc0e2ce14104"
 
+electron-unhandled@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/electron-unhandled/-/electron-unhandled-1.1.0.tgz#ebb4e7cbfca20ba696f6bbe513e5929e1533ba46"
+  dependencies:
+    clean-stack "^1.3.0"
+    ensure-error "^1.0.0"
+    lodash.debounce "^4.0.8"
+
+electron-util@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/electron-util/-/electron-util-0.9.0.tgz#2a07b8e2b5035886884db53e0b7db625a9862845"
+  dependencies:
+    electron-is-dev "^0.3.0"
+
 electron@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/electron/-/electron-2.0.4.tgz#87b86b8d9c13748032868c1be97e2b7021a51808"
@@ -2556,6 +2574,10 @@ enhanced-resolve@~0.9.0:
     graceful-fs "^4.1.2"
     memory-fs "^0.2.0"
     tapable "^0.1.8"
+
+ensure-error@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ensure-error/-/ensure-error-1.0.0.tgz#c54c13329132cad06f847423b52c22fd88099d0d"
 
 entities@~1.1.1:
   version "1.1.1"
@@ -4426,6 +4448,10 @@ lodash.clonedeep@^3.0.2:
 lodash.clonedeep@^4.3.2:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
+
+lodash.debounce@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
 
 lodash.isarguments@^3.0.0:
   version "3.1.0"
