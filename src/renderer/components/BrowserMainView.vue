@@ -1,8 +1,8 @@
 <template>
 <div>
-  <tab ref="tab"></tab>
-  <navbar ref="navbar"></navbar>
-  <page ref="page"></page>
+  <tab :windowId="windowId"></tab>
+  <navbar :windowId="windowId"></navbar>
+  <page ref="page" :windowId="windowId"></page>
 </div>
 </template>
 
@@ -19,43 +19,67 @@ export default {
     Page,
     Tab,
   },
+  data() {
+    return {
+      windowId: 0,
+    };
+  },
+  computed: {
+    tab: function() {
+        const tab = this.$store.state.browser.windows[this.windowId];
+        if (tab === undefined) {
+            return {
+                windowId: -1,
+                url: '',
+                title: '',
+                isLoading: false,
+                canGoBack: false,
+                canGoForward: false,
+                canRefresh: false
+            };
+        }
+        return tab;
+    },
+  },
   methods: {
     onLoadCommit(event) {
       // we don't care about subframe document-level loads
       if (event.isMainFrame) {
-        // get Navbar by its reference id
-        const navbar = this.$refs.navbar;
-        // update value of 'inputValue'
-        navbar.inputValue = event.url;
+        this.$store.commit('loadCommit', {
+          windowId: this.windowId,
+          url: event.url,
+        });
       }
     },
     onDidStartLoading() {
       // https://electron.atom.io/docs/api/ipc-renderer/#ipcrenderersendchannel-arg1-arg2-
       this.$electron.ipcRenderer.send('set-title', 'Loading...');
+      this.$store.commit('didStartLoading', {
+        windowId: this.windowId,
+      });
     },
     onDomReady(event) {
       // get the corresponding webview
       const webview = event.target;
-      // get Navbar by its reference id
-      const navbar = this.$refs.navbar;
-      // update values of 'canGoBack' and 'canGoForward'
-      navbar.canGoBack = webview.canGoBack();
-      navbar.canGoForward = webview.canGoForward();
+      this.$store.commit('domReady', {
+        windowId: this.windowId,
+        canGoBack: webview.canGoBack(),
+        canGoForward: webview.canGoForward(),
+      });
     },
     onPagetitleUpdated() {
-      // get Tab by its reference id
-      const tab = this.$refs.tab;
-      tab.title = event.title;
       // https://electron.atom.io/docs/api/ipc-renderer/#ipcrenderersendchannel-arg1-arg2-
       this.$electron.ipcRenderer.send('set-title', event.title);
+      this.$store.commit('pageTitleSet', {
+        windowId: this.windowId,
+        title: event.title,
+      });
     },
     onContextMenu(event) {
       const { Menu, MenuItem } = this.$electron.remote;
       const menu = new Menu();
       // get the corresponding webview
       const webview = event.target;
-      // get Navbar by its reference id
-      const navbar = this.$refs.navbar;
       const params = event.params;
       // add the 'Backward' menu item
       menu.append(new MenuItem({
@@ -63,7 +87,7 @@ export default {
         click: () => {
           this.onClickBack();
         },
-        enabled: navbar.canGoBack,
+        enabled: this.tab.canGoBack,
       }));
       // add the 'Forward' menu item
       menu.append(new MenuItem({
@@ -71,7 +95,7 @@ export default {
         click: () => {
           this.onClickForward();
         },
-        enabled: navbar.canGoForward,
+        enabled: this.tab.canGoForward,
       }));
       // add the 'Reload' menu item
       menu.append(new MenuItem({
@@ -167,6 +191,9 @@ export default {
       // https://electron.atom.io/docs/api/webview-tag/#webviewreload
       webview.reload();
     },
+  },
+  beforeMount() {
+    this.windowId = this.$electron.ipcRenderer.sendSync('window-id');
   },
   mounted() {
     if (is.macos) {

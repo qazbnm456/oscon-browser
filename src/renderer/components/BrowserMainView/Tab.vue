@@ -7,7 +7,7 @@
                 ><path data-v-3b6d303d="" d="m0.5,31l14,-32l3,0" stroke-linejoin="round" stroke-dasharray="null" stroke-width="null" fill="none" class="edge-border"></path>
             </svg>
             <div class="chrome-tab-bg">
-                <span class="chrome-tab-title">{{ title }}</span>
+                <span class="chrome-tab-title">{{ tab.title }}</span>
             </div>
             <svg data-v-3b6d303d="" width="15" height="30" class="right-edge">
                 <path data-v-3b6d303d="" d="m15,32l0,-32l-2,3l-15,34l10,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" class="edge-bg"></path>
@@ -20,15 +20,30 @@
 
 <script>
 export default {
-    data() {
-        return {
-            title: '',
-        };
+    props: [
+        'windowId',
+    ],
+    computed: {
+        tab: function() {
+            const tab = this.$store.state.browser.windows[this.windowId];
+            if (tab === undefined) {
+                return {
+                    windowId: -1,
+                    url: '',
+                    title: '',
+                    isLoading: false,
+                    canGoBack: false,
+                    canGoForward: false,
+                    canRefresh: false
+                };
+            }
+            return tab;
+        },
     },
     methods: {
         onDoubleClick(event) {
             if (event.target) {
-                const currentWindow = this.$electron.remote.BrowserWindow.getFocusedWindow();
+                const currentWindow = this.$electron.remote.BrowserWindow.fromId(this.windowId);
                 if (currentWindow) {
                     if (currentWindow.isMaximized()) {
                         currentWindow.unmaximize();

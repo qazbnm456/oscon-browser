@@ -2,22 +2,35 @@
 <div id="browser-navbar">
     <div class="control">
         <button @click="onClickHome">{{ $t("functions.home") }}</button>
-        <button @click="onClickBack" :disabled="!canGoBack">{{ $t("functions.back") }}</button>
-        <button @click="onClickForward" :disabled="!canGoForward">{{ $t("functions.forward") }}</button>
+        <button @click="onClickBack" :disabled="!tab.canGoBack">{{ $t("functions.back") }}</button>
+        <button @click="onClickForward" :disabled="!tab.canGoForward">{{ $t("functions.forward") }}</button>
         <button @click="onClickReload">{{ $t("functions.reload") }}</button>
     </div>
-    <input @keyup.enter="onSelect" v-model="inputValue">
+    <input @keyup.enter="onSelect" :value="tab.url">
 </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            canGoBack: false,
-            canGoForward: false,
-            inputValue: '',
-        };
+    props: [
+        'windowId',
+    ],
+    computed: {
+        tab: function() {
+            const tab = this.$store.state.browser.windows[this.windowId];
+            if (tab === undefined) {
+                return {
+                    windowId: -1,
+                    url: '',
+                    title: '',
+                    isLoading: false,
+                    canGoBack: false,
+                    canGoForward: false,
+                    canRefresh: false
+                };
+            }
+            return tab;
+        },
     },
     methods: {
         onClickHome() {
@@ -54,8 +67,8 @@ export default {
             if (value) {
                 // check if we have handleSelect method defined in BrowserMainView
                 if (this.$parent.handleSelect) {
-                // if so, then delegating to BrowserMainView
-                this.$parent.handleSelect(value);
+                    // if so, then delegating to BrowserMainView
+                    this.$parent.handleSelect(value);
                 }
             }
         },

@@ -22,7 +22,7 @@ unhandled()
 /* Create VueI18n instance with options */
 const i18n = new VueI18n({
   /* Set locale */
-  locale: 'zhTW',
+  locale: 'en',
   /* Ready translated locale messages */
   messages: {
     en: {
