@@ -84,7 +84,7 @@ export default {
 
 <style scoped>
 webview {
-    height: calc(100vh - 27px);
+    height: calc(100vh - 66px);
     width: 100vw;
     outline: none;
     position: relative;
