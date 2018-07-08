@@ -31,7 +31,7 @@ export default {
             return {
                 windowId: -1,
                 url: '',
-                title: '',
+                title: 'Loading...',
                 isLoading: false,
                 canGoBack: false,
                 canGoForward: false,
