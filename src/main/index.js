@@ -2,6 +2,8 @@
 import { app, BrowserWindow, ipcMain, Menu, MenuItem } from 'electron'
 import unhandled from 'electron-unhandled'
 import { is } from 'electron-util'
+
+import '../store/main'
 /* eslint-enable */
 
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true

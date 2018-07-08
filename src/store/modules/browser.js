@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import * as types from '../mutation-types';
 
 const state = {
     windows: [],
@@ -18,7 +19,7 @@ function createTabObject(state, wid, openUrl) {
 
 const mutations = {
     // tab handler
-    createTab(state, payload) {
+    [types.CREATE_TAB](state, payload) {
         const windowId = payload.windowId;
         const url = payload.url;
         const isURL = payload.isURL;
@@ -35,7 +36,7 @@ const mutations = {
             state.windows[windowId] = createTabObject(state, windowId, newUrl);
         }
     },
-    loadCommit(state, payload) {
+    [types.LOAD_COMMIT](state, payload) {
         const windowId = payload.windowId;
         const url = payload.url;
         const tab = state.windows[windowId];
@@ -45,7 +46,7 @@ const mutations = {
             Vue.set(state.windows, windowId, tab);
         }
     },
-    didStartLoading(state, payload) {
+    [types.DID_START_LOADING](state, payload) {
         const windowId = payload.windowId;
         const tab = state.windows[windowId];
 
@@ -54,7 +55,7 @@ const mutations = {
             Vue.set(state.windows, windowId, tab);
         }
     },
-    pageTitleSet(state, payload) {
+    [types.PAGE_TITLE_SET](state, payload) {
         const windowId = payload.windowId;
         const title = payload.title;
         const tab = state.windows[windowId];
@@ -64,7 +65,7 @@ const mutations = {
             Vue.set(state.windows, windowId, tab);
         }
     },
-    domReady(state, payload) {
+    [types.DOM_READY](state, payload) {
         const windowId = payload.windowId;
         const tab = state.windows[windowId];
 

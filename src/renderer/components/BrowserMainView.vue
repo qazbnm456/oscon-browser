@@ -45,7 +45,7 @@ export default {
     onLoadCommit(event) {
       // we don't care about subframe document-level loads
       if (event.isMainFrame) {
-        this.$store.commit('loadCommit', {
+        this.$store.dispatch('loadCommit', {
           windowId: this.windowId,
           url: event.url,
         });
@@ -54,14 +54,14 @@ export default {
     onDidStartLoading() {
       // https://electron.atom.io/docs/api/ipc-renderer/#ipcrenderersendchannel-arg1-arg2-
       this.$electron.ipcRenderer.send('set-title', 'Loading...');
-      this.$store.commit('didStartLoading', {
+      this.$store.dispatch('didStartLoading', {
         windowId: this.windowId,
       });
     },
     onDomReady(event) {
       // get the corresponding webview
       const webview = event.target;
-      this.$store.commit('domReady', {
+      this.$store.dispatch('domReady', {
         windowId: this.windowId,
         canGoBack: webview.canGoBack(),
         canGoForward: webview.canGoForward(),
@@ -70,7 +70,7 @@ export default {
     onPagetitleUpdated() {
       // https://electron.atom.io/docs/api/ipc-renderer/#ipcrenderersendchannel-arg1-arg2-
       this.$electron.ipcRenderer.send('set-title', event.title);
-      this.$store.commit('pageTitleSet', {
+      this.$store.dispatch('pageTitleSet', {
         windowId: this.windowId,
         title: event.title,
       });

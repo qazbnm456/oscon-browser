@@ -10,7 +10,7 @@ import './assets/fontawesome/css/fontawesome-all.css'
 
 import App from './App'
 import router from './router'
-import store from './store'
+import store from '../store/renderer'
 
 Vue.config.productionTip = false
 Vue.config.devtools = true

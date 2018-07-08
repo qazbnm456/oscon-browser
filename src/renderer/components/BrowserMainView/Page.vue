@@ -79,7 +79,7 @@ export default {
         // if we want to navigate to somewhere,
         // we just assign the value to the src attribute of the webview element
         this.navigateTo('https://github.com/qazbnm456/oscon-browser');
-        this.$store.commit('createTab', {
+        this.$store.dispatch('createTab', {
             windowId: this.windowId,
             url: 'https://github.com/qazbnm456/oscon-browser',
             isURL: true,
