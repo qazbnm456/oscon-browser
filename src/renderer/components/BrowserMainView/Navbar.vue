@@ -6,7 +6,9 @@
         <button @click="onClickForward" :disabled="!tab.canGoForward">{{ $t("functions.forward") }}</button>
         <button @click="onClickReload">{{ $t("functions.reload") }}</button>
     </div>
-    <input @keyup.enter="onSelect" :value="tab.url">
+    <div class="input-group">
+        <custom-autocomplete id="url-input" @keyup.enter.native="onSelect" @select="onSelect" :value="tab.url"></custom-autocomplete>
+    </div>
 </div>
 </template>
 
@@ -61,14 +63,20 @@ export default {
                 this.$parent.onClickReload();
             }
         },
-        onSelect() {
-            // get the value from input field
-            const value = event.target.value;
-            if (value) {
+        onSelect(event) {
+            // get the value from the CustomAutocomplete component
+            const value = event.value;
+            if (value === 'OSCON') {
                 // check if we have handleSelect method defined in BrowserMainView
                 if (this.$parent.handleSelect) {
                     // if so, then delegating to BrowserMainView
-                    this.$parent.handleSelect(value);
+                    this.$parent.handleSelect('https://conferences.oreilly.com/oscon/oscon-or');
+                }
+            } else {
+                // check if we have handleSelect method defined in BrowserMainView
+                if (this.$parent.handleSelect) {
+                    // if so, then delegating to BrowserMainView
+                    this.$parent.handleSelect(event.target.value);
                 }
             }
         },
@@ -76,7 +84,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #browser-navbar {
     display: flex;
     height: 27px;
@@ -92,5 +100,65 @@ export default {
     flex: 1;
     font-size: 14px;
     font-family: Source Code Pro,Courier,monospace;
+}
+
+.input-group {
+    flex: 9;
+    display: flex;
+    margin: 0 5px;
+}
+
+#url-input {
+    flex: 1;
+    display: flex;
+}
+
+.el-input {
+    flex: 1;
+    display: flex;
+    -webkit-app-region: no-drag;
+    -webkit-user-select: none;
+}
+.el-input .el-input__inner {
+    position: relative;
+    margin: -1px -5px;
+    padding-left: 5px;
+    font-size: 14px;
+    color: #808080;
+    outline: 0;
+    height: auto;
+    width: calc(100vw - 205px);
+    line-height: 27px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #bbb;
+    border-left: none;
+    font-family: 'Source Code Pro', Courier, monospace;
+}
+
+.el-autocomplete-suggestion li {
+    list-style: none;
+    line-height: 36px;
+    padding: 0 10px;
+    margin: 0;
+    cursor: pointer;
+    color: white;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.el-autocomplete-suggestion__wrap {
+    background: #324057;
+    opacity: 0.9;
+}
+.el-autocomplete-suggestion__wrap li {
+    line-height: normal;
+    padding: 7px;
+    text-align: left;
+}
+.el-autocomplete-suggestion__wrap li:hover {
+    color: black;
+    background: #F9FAFC;
 }
 </style>

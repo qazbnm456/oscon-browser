@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import Electron from 'vue-electron'
 import unhandled from 'electron-unhandled'
+import { Autocomplete } from 'element-ui';
 import 'bulma/css/bulma.css'
 
 import './assets/style/main.sass'
@@ -43,6 +44,20 @@ const i18n = new VueI18n({
     }
   }
 })
+
+
+// Customize Autocomplete component to match out needs
+const reusableAutocomplete = Vue.extend(Autocomplete)
+const customAutocomplete = reusableAutocomplete.extend({
+  methods: {
+    getData() {
+      this.suggestions = [
+        { value: 'OSCON' }
+      ]
+    }
+  }
+})
+Vue.component('custom-autocomplete', customAutocomplete)
 
 /* eslint-disable no-new */
 new Vue({
