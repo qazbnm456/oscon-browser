@@ -3,7 +3,7 @@
 > The browser prototype for OSCON 2018
 
 <p align="center">
-  <img alt="OSCON Browser" src="https://i.imgur.com/TiszZp0.png" width="700px">
+  <img alt="OSCON Browser" src="https://i.imgur.com/FX5nFPY.png" width="700px">
 </p>
 
 ## Build Setup
